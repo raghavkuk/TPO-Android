@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "842326583512",
+    "project_id": "tpo-pec-54cd4"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842326583512:android:ff8a8176e968d8de",
+        "android_client_info": {
+          "package_name": "pec.com.tpopec"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz7bgKV-EbYxplyaCmOVERJ4OSXONFWuE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-77544441-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

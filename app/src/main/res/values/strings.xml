@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TPO PEC</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_companies_tab">New</string>
+    <string name="visited_companies_tab">Applied</string>
+    <string name="announcements_tab">Announcements</string>
+</resources>
