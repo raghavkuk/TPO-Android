@@ -87,15 +87,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             try {
                                 String sidRec = json.getString(Constants.KEY_SID);
                                 String passwordRec = json.getString(Constants.KEY_PASSWORD);
-                                String bracnchRec = json.getString(Constants.KEY_BRANCH);
+                                String bracnchRec = json.getString("branch");
+                                String nameRec = json.getString(Constants.KEY_STUDENT_NAME);
+                                String programmeRec = json.getString(Constants.KEY_STUDENT_PROGRAMME);
 
                                 Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
                                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                 loginIntent.putExtra(Constants.KEY_SID, sidRec);
                                 loginIntent.putExtra(Constants.KEY_PASSWORD, passwordRec);
                                 loginIntent.putExtra(Constants.KEY_BRANCH, bracnchRec);
+                                loginIntent.putExtra(Constants.KEY_STUDENT_NAME, nameRec);
+                                loginIntent.putExtra(Constants.KEY_STUDENT_PROGRAMME, programmeRec);
 
                                 startActivity(loginIntent);
+                                finish();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -24,6 +24,7 @@ import java.util.Map;
 import pec.com.tpopec.R;
 import pec.com.tpopec.general.Common;
 import pec.com.tpopec.general.Constants;
+import pec.com.tpopec.general.MySharedPreferences;
 import pec.com.tpopec.general.RegistrationConstants;
 
 /**
@@ -32,7 +33,8 @@ import pec.com.tpopec.general.RegistrationConstants;
 public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
-    private String sid;
+    private String sid, branch;
+    private MySharedPreferences sp;
 
     public RegistrationIntentService() {
         super(TAG);
@@ -42,6 +44,7 @@ public class RegistrationIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Bundle extras = intent.getExtras();
         sid = intent.getStringExtra(Constants.KEY_SID);
+        branch = intent.getStringExtra(Constants.KEY_BRANCH);
         String token = "";
 
         Intent regCompleteIntent = new Intent(RegistrationConstants.REGISTRATION_COMPLETE);
@@ -62,6 +65,7 @@ public class RegistrationIntentService extends IntentService {
             // sent to your server. If the boolean is false, send the token to your server,
             // otherwise your server should have already received the token.
             regCompleteIntent.putExtra(RegistrationConstants.SENT_TOKEN_TO_SERVER, true);
+            regCompleteIntent.putExtra(RegistrationConstants.REGISTRATION_TOKEN, token);
         } catch (Exception e) {
             Log.e(TAG, "Failed to complete token refresh", e);
             // If an exception happens while fetching the new token or updating our registration
@@ -107,6 +111,7 @@ public class RegistrationIntentService extends IntentService {
                 Map<String,String> params = new HashMap<String, String>();
                 params.put(RegistrationConstants.REGISTRATION_TOKEN, token);
                 params.put(Constants.KEY_SID, sid);
+                params.put(Constants.KEY_BRANCH, branch);
                 return params;
             }
         };

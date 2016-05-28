@@ -1,184 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="192dp"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:id="@+id/app_bar">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/tableLayout1"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_width="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:titleTextColor="@color/white"
+                app:layout_collapseMode="pin"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
+        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+        <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- 2 columns -->
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dip" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:text="Name:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="end"
-                android:padding="10dp"
-                android:layout_weight="3"/>
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/tableLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/c_name"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:gravity="start"
-                android:padding="10dp"
-                android:layout_weight="7"/>
-        </TableRow>
+                <!-- 2 columns -->
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip" >
 
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dip" >
+                    <TextView
+                        android:text="Name:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="end"
+                        android:padding="10dp"
+                        android:layout_weight="3"/>
 
-            <TextView
-                android:text="Desgnation:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="end"
-                android:padding="10dp"
-                android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/c_name"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        android:gravity="start"
+                        android:padding="10dp"
+                        android:layout_weight="7"/>
+                </TableRow>
 
-            <TextView
-                android:id="@+id/c_desig"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:gravity="start"
-                android:padding="10dp"
-                android:layout_weight="7"/>
-        </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip" >
 
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dip" >
+                    <TextView
+                        android:text="Desgnation:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="end"
+                        android:padding="10dp"
+                        android:layout_weight="3"/>
 
-            <TextView
-                android:text="Description:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="end"
-                android:padding="10dp"
-                android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/c_desig"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        android:gravity="start"
+                        android:padding="10dp"
+                        android:layout_weight="7"/>
+                </TableRow>
 
-            <TextView
-                android:id="@+id/c_desc"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:gravity="start"
-                android:padding="10dp"
-                android:layout_weight="7"/>
-        </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip" >
 
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dip" >
+                    <TextView
+                        android:text="Description:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="end"
+                        android:padding="10dp"
+                        android:layout_weight="3"/>
 
-            <TextView
-                android:text="CTC:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="end"
-                android:padding="10dp"
-                android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/c_desc"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        android:gravity="start"
+                        android:padding="10dp"
+                        android:layout_weight="7"/>
+                </TableRow>
 
-            <TextView
-                android:id="@+id/c_ctc"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:gravity="start"
-                android:padding="10dp"
-                android:layout_weight="7"/>
-        </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip" >
 
-        <TableRow
-            android:id="@+id/tableRow5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dip" >
+                    <TextView
+                        android:text="CTC:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="end"
+                        android:padding="10dp"
+                        android:layout_weight="3"/>
 
-            <TextView
-                android:text="Date of Visit:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="end"
-                android:padding="10dp"
-                android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/c_ctc"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        android:gravity="start"
+                        android:padding="10dp"
+                        android:layout_weight="7"/>
+                </TableRow>
 
-            <TextView
-                android:id="@+id/c_date"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:gravity="start"
-                android:padding="10dp"
-                android:layout_weight="7"/>
-        </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip" >
 
-        <TableRow
-            android:id="@+id/tableRow6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dip" >
+                    <TextView
+                        android:text="Date of Visit:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="end"
+                        android:padding="10dp"
+                        android:layout_weight="3"/>
 
-            <TextView
-                android:text="App. Deadline:"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="end"
-                android:padding="10dp"
-                android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/c_date"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        android:gravity="start"
+                        android:padding="10dp"
+                        android:layout_weight="7"/>
+                </TableRow>
 
-            <TextView
-                android:id="@+id/c_deadline"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
-                android:gravity="start"
-                android:padding="10dp"
-                android:layout_weight="7"/>
-        </TableRow>
+                <TableRow
+                    android:id="@+id/tableRow6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip" >
 
-    </TableLayout>
+                    <TextView
+                        android:text="App. Deadline:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="end"
+                        android:padding="10dp"
+                        android:layout_weight="3"/>
 
-    <Button
+                    <TextView
+                        android:id="@+id/c_deadline"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        android:gravity="start"
+                        android:padding="10dp"
+                        android:layout_weight="7"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:text="Select Resume:"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="end"
+                        android:padding="10dp"
+                        android:layout_weight="3"/>
+
+                    <Spinner
+                        android:id="@+id/cv_spinner"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:layout_gravity="start">
+
+                    </Spinner>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/apply_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Apply"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="20dp"
-        android:layout_margin="5dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tableLayout1"
-        android:background="@color/colorPrimary"/>
+        app:layout_anchor="@id/nested_scroll"
+        app:layout_anchorGravity="bottom|right|end"
+        app:fabSize="normal"
+        style="@style/FabStyle"/>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -3,11 +3,14 @@ package pec.com.tpopec.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pec.com.tpopec.general.Constants;
+
 /**
  * Created by Raghav on 09-05-2016.
  */
 public class NewCompany {
 
+    private int jaf_id, company_id;
     private String companyName, dateOfVisit, description, designation, perks, bond, deadline;
     private Double ctc, gross, cgpa;
 
@@ -69,6 +72,22 @@ public class NewCompany {
         this.cgpa = cgpa;
     }
 
+    public int getJaf_id() {
+        return jaf_id;
+    }
+
+    public void setJaf_id(int jaf_id) {
+        this.jaf_id = jaf_id;
+    }
+
+    public int getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(int company_id) {
+        this.company_id = company_id;
+    }
+
     public NewCompany(JSONObject jsonObject){
 
         try {
@@ -82,6 +101,9 @@ public class NewCompany {
             deadline = jsonObject.getString("deadline");
             dateOfVisit = jsonObject.getString("dateofvisit");
             cgpa = jsonObject.getDouble("cgpa");
+            jaf_id = jsonObject.getInt("JAF_id");
+            company_id = jsonObject.getInt(Constants.KEY_COMPANY_ID);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

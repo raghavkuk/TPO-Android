@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,13 +44,14 @@ import pec.com.tpopec.model.NewCompany;
  * Use the {@link NewCompaniesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewCompaniesFragment extends Fragment {
+public class NewCompaniesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private OnFragmentInteractionListener mListener;
     private NewCompaniesAdapter newCompaniesAdapter;
     private ArrayList<NewCompany> newCompanies;
     private MySharedPreferences sp;
     private String sid, branch;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public NewCompaniesFragment() {
         // Required empty public constructor
@@ -70,13 +72,15 @@ public class NewCompaniesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_new_companies, container, false);
         sp = new MySharedPreferences(getActivity());
         sid = sp.getSid();
         branch = sp.getBranch();
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
         newCompanies = new ArrayList<NewCompany>();
         getCompanies();
         RecyclerView newCompaniesRecyclerView = (RecyclerView) rootView.findViewById(R.id.new_companies_recycler);
@@ -97,6 +101,8 @@ public class NewCompaniesFragment extends Fragment {
                 intent.putExtra("ctc", newCompanies.get(position).getCtc());
                 intent.putExtra("deadline", newCompanies.get(position).getDeadline());
                 intent.putExtra("date", newCompanies.get(position).getDateOfVisit());
+                intent.putExtra(Constants.KEY_JAF_ID, newCompanies.get(position).getJaf_id());
+                intent.putExtra(Constants.KEY_COMPANY_ID, newCompanies.get(position).getCompany_id());
                 startActivity(intent);
             }
         }));
@@ -116,6 +122,7 @@ public class NewCompaniesFragment extends Fragment {
                     public void onResponse(String response) {
                         try {
                             JSONArray jsonArray = new JSONArray(response);
+                            swipeRefreshLayout.setRefreshing(false);
                             for(int i=0; i<jsonArray.length(); i++){
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 NewCompany company = new NewCompany(jsonObject);
@@ -168,6 +175,12 @@ public class NewCompaniesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRefresh() {
+        newCompanies = new ArrayList<NewCompany>();
+        getCompanies();
     }
 
     /**

@@ -35,8 +35,8 @@ public class AppliedCompaniesAdapter extends RecyclerView.Adapter<AppliedCompani
     @Override
     public void onBindViewHolder(AppliedCompanyViewHolder holder, int position) {
         Application company = appliedCompaniesList.get(position);
-        holder.name.setText(company.getName());
-        holder.designation.setText(company.getDesignation());
+        holder.name.setText(company.getCompany_name());
+        holder.designation.setText(company.getJob_designation());
     }
 
     @Override

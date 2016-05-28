@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,25 +36,26 @@ import pec.com.tpopec.model.Application;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link VisitedCompaniesFragment.OnFragmentInteractionListener} interface
+ * {@link AppliedCompaniesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link VisitedCompaniesFragment#newInstance} factory method to
+ * Use the {@link AppliedCompaniesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class VisitedCompaniesFragment extends Fragment {
+public class AppliedCompaniesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private OnFragmentInteractionListener mListener;
     private AppliedCompaniesAdapter appliedCompaniesAdapter;
     private ArrayList<Application> appliedCompanies;
     private MySharedPreferences sp;
     private String sid, branch;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    public VisitedCompaniesFragment() {
+    public AppliedCompaniesFragment() {
         // Required empty public constructor
     }
 
-    public static VisitedCompaniesFragment newInstance() {
-        VisitedCompaniesFragment fragment = new VisitedCompaniesFragment();
+    public static AppliedCompaniesFragment newInstance() {
+        AppliedCompaniesFragment fragment = new AppliedCompaniesFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -68,10 +70,12 @@ public class VisitedCompaniesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_visited_companies, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_applied_companies, container, false);
         sp = new MySharedPreferences(getActivity());
         sid = sp.getSid();
         branch = sp.getBranch();
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
         appliedCompanies = new ArrayList<Application>();
         getCompanies();
         RecyclerView appliedCompaniesRecyclerView = (RecyclerView) rootView.findViewById(R.id.applied_companies_recycler);
@@ -98,6 +102,7 @@ public class VisitedCompaniesFragment extends Fragment {
                     public void onResponse(String response) {
                         try {
                             JSONArray jsonArray = new JSONArray(response);
+                            swipeRefreshLayout.setRefreshing(false);
                             for(int i=0; i<jsonArray.length(); i++){
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 Application company = new Application(jsonObject);
@@ -150,6 +155,12 @@ public class VisitedCompaniesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onRefresh() {
+        appliedCompanies = new ArrayList<Application>();
+        getCompanies();
     }
 
     /**

@@ -15,6 +15,8 @@ public class MySharedPreferences {
     public static final String SHARED_PREFERENCES_SID = "sid";
     public static final String SHARED_PREFERENCES_PASSWORD = "password";
     public static final String SHARED_PREFERENCES_BRANCH = "branch";
+    public static final String SHARED_PREFERENCES_STUDENT_NAME = "student_name";
+    public static final String SHARED_PREFERENCES_STUDENT_PROGRAMME = "student_programme";
     public static final String SHARED_PREFERENCES_GCM_TOKEN = "gcm_token";
 
     public MySharedPreferences(Context context) {
@@ -59,5 +61,25 @@ public class MySharedPreferences {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(SHARED_PREFERENCES_GCM_TOKEN, token);
         return editor.commit();
+    }
+
+    public boolean setStudentName(String name) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SHARED_PREFERENCES_STUDENT_NAME, name);
+        return editor.commit();
+    }
+
+    public String getStudentName() {
+        return sharedPreferences.getString(SHARED_PREFERENCES_STUDENT_NAME, null);
+    }
+
+    public boolean setStudentProgramme(String prog) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SHARED_PREFERENCES_STUDENT_PROGRAMME, prog);
+        return editor.commit();
+    }
+
+    public String getStudentProgramme() {
+        return sharedPreferences.getString(SHARED_PREFERENCES_STUDENT_PROGRAMME, null);
     }
 }
