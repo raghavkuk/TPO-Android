@@ -5,19 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,14 +38,9 @@ public class HomeActivity extends AppCompatActivity implements NewCompaniesFragm
     private static final String TAG = "HomeActivity";
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private ProgressBar mRegistrationProgressBar;
-    private TextView mInformationTextView;
-
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private NavigationView mNavigationView;
-    private FragmentManager mFragmentManager;
-    private FragmentTransaction mFragmentTransaction;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private HomeViewPagerAdapter homeViewPagerAdapter;
 
 
     @Override
@@ -59,59 +49,50 @@ public class HomeActivity extends AppCompatActivity implements NewCompaniesFragm
         setContentView(R.layout.activity_home);
         sp = new MySharedPreferences(this);
 
-        /**
-         *Setup the DrawerLayout and NavigationView
-         */
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view) ;
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        /**
-         * Lets inflate the very first fragment
-         * Here , we are inflating the TabFragment as the first Fragment
-         */
+        homeViewPagerAdapter = new HomeViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(homeViewPagerAdapter);
 
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView, new CompaniesFragment()).commit();
-        /**
-         * Setup click events on the Navigation View Items.
-         */
+        tabLayout.setupWithViewPager(viewPager);
 
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        tabLayout.getTabAt(0).setIcon(R.drawable.selector_companies);
+        tabLayout.getTabAt(1).setIcon(R.drawable.selector_announcements);
+        tabLayout.getTabAt(2).setIcon(R.drawable.selector_applied);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                mDrawerLayout.closeDrawers();
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-
-                if (menuItem.getItemId() == R.id.nav_item_announcements) {
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new AnnoucementsFragment()).commit();
-
-                }
-
-                if (menuItem.getItemId() == R.id.nav_item_companies) {
-                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new CompaniesFragment()).commit();
-                }
-
-                return false;
             }
 
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        getSupportActionBar().setTitle("New Companies");
+                        return;
+                    case 1:
+                        getSupportActionBar().setTitle("Announcements");
+                        return;
+                    case 2:
+                        getSupportActionBar().setTitle("Applications");
+                        return;
+                    default:
+                        getSupportActionBar().setTitle("TPO");
+                        return;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
         });
-
-        /**
-         * Setup Drawer Toggle of the Toolbar
-         */
-
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout, toolbar,R.string.app_name,
-                R.string.app_name);
-
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        setSupportActionBar(toolbar);
-        mDrawerToggle.syncState();
-
 
         Intent intent = getIntent();
         if(intent.getStringExtra(Constants.KEY_SID) != null){
@@ -139,11 +120,7 @@ public class HomeActivity extends AppCompatActivity implements NewCompaniesFragm
             }
         };
 
-        RelativeLayout drawerHeader = (RelativeLayout) mNavigationView.getHeaderView(0);
-        TextView userName = (TextView) drawerHeader.findViewById(R.id.user_name);
-        userName.setText(sp.getStudentName());
-        TextView userSid = (TextView)drawerHeader.findViewById(R.id.user_sid);
-        userSid.setText(sp.getSid());
+        tabLayout.getTabAt(1).select();
 
     }
 

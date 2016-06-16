@@ -1,46 +1,45 @@
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:id="@+id/toolbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="TPO PEC" />
+        android:fitsSystemWindows="true"
+        android:elevation="10dp">
 
-    <android.support.v4.widget.DrawerLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:id="@+id/drawerLayout"
-        android:fitsSystemWindows="true">
-
-        <FrameLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/containerView">
-        </FrameLayout>
-
-
-        <android.support.design.widget.NavigationView
+        <android.support.v7.widget.Toolbar
             xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:id="@+id/nav_view"
-            app:itemTextColor="@color/black"
-            app:menu="@menu/navigation_items"
-            app:headerLayout="@layout/drawer_header"/>
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:id="@+id/toolbar"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="TPO PEC"
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
-    </android.support.v4.widget.DrawerLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            android:background="@color/colorPrimary"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextColor="@color/light_grey"
+            app:tabSelectedTextColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</LinearLayout>
+        </android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</android.support.design.widget.CoordinatorLayout>
 

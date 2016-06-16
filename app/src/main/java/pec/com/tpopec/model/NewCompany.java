@@ -91,17 +91,17 @@ public class NewCompany {
     public NewCompany(JSONObject jsonObject){
 
         try {
-            companyName = jsonObject.getString("company_name");
-            designation = jsonObject.getString("job_designation");
-            description = jsonObject.getString("job_description");
-            ctc = jsonObject.getDouble("ctc");
-            gross = jsonObject.getDouble("gross");
-            perks = jsonObject.getString("perks");
-            bond = jsonObject.getString("bond");
-            deadline = jsonObject.getString("deadline");
-            dateOfVisit = jsonObject.getString("dateofvisit");
-            cgpa = jsonObject.getDouble("cgpa");
-            jaf_id = jsonObject.getInt("JAF_id");
+            companyName = jsonObject.getString(Constants.KEY_COMPANY_NAME);
+            designation = jsonObject.getString(Constants.KEY_JOB_DESIGNATION);
+            description = jsonObject.getString(Constants.KEY_JOB_DESCRIPTION);
+            ctc = jsonObject.getDouble(Constants.KEY_CTC);
+            gross = jsonObject.getDouble(Constants.KEY_GROSS);
+            perks = jsonObject.getString(Constants.KEY_PERKS);
+            bond = jsonObject.getString(Constants.KEY_BOND);
+            deadline = jsonObject.getString(Constants.KEY_DEADLINE);
+            dateOfVisit = jsonObject.getString(Constants.KEY_DATE_OF_VISIT);
+            cgpa = jsonObject.getDouble(Constants.KEY_CGPA);
+            jaf_id = jsonObject.getInt(Constants.KEY_JAF_ID);
             company_id = jsonObject.getInt(Constants.KEY_COMPANY_ID);
 
 

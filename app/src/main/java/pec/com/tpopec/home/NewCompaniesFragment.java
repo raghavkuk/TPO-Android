@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pec.com.tpopec.R;
+import pec.com.tpopec.general.Common;
 import pec.com.tpopec.general.Constants;
 import pec.com.tpopec.general.DividerItemDecoration;
 import pec.com.tpopec.general.MySharedPreferences;
@@ -123,6 +125,8 @@ public class NewCompaniesFragment extends Fragment implements SwipeRefreshLayout
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             swipeRefreshLayout.setRefreshing(false);
+                            newCompanies.clear();
+                            newCompaniesAdapter.notifyDataSetChanged();
                             for(int i=0; i<jsonArray.length(); i++){
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 NewCompany company = new NewCompany(jsonObject);
@@ -138,7 +142,13 @@ public class NewCompaniesFragment extends Fragment implements SwipeRefreshLayout
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.print("That didn't work!");
+                        swipeRefreshLayout.setRefreshing(false);
+
+                        if(error.getClass().getName().equals("com.android.volley.NoConnectionError")){
+                            Toast.makeText(getContext(), "No network connection", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(getContext(), "Unable to get companies", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }){
             @Override
@@ -179,8 +189,13 @@ public class NewCompaniesFragment extends Fragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        newCompanies = new ArrayList<NewCompany>();
-        getCompanies();
+
+        if(Common.isNetworkConnectionAvailable(getActivity())){
+            getCompanies();
+        }else{
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(getActivity(), "No network connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     /**

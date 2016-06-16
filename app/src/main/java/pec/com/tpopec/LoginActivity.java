@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText sid;
     private EditText password;
+    private Spinner programme;
     private MySharedPreferences sp;
 
     public LoginActivity() {
@@ -53,8 +57,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         sp = new MySharedPreferences(this);
         sid = (EditText) findViewById(R.id.sid_input);
         password = (EditText) findViewById(R.id.password_input);
+        programme = (Spinner) findViewById(R.id.programme_spinner);
         Button login_button = (Button) findViewById(R.id.login_button);
 
+        ArrayAdapter programmeAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, new String[]{"BE Final Year", "ME Final year", "BE Third Year "});
+        programme.setAdapter(programmeAdapter);
 
         login_button.setOnClickListener(this);
 
@@ -70,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             final String sidText = this.sid.getText().toString();
             final String passwordText = this.password.getText().toString();
+            final String studentProgramme = ((TextView)this.programme.getSelectedView()).getText().toString();
 
             progressBar.setVisibility(View.VISIBLE);
 
@@ -87,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             try {
                                 String sidRec = json.getString(Constants.KEY_SID);
                                 String passwordRec = json.getString(Constants.KEY_PASSWORD);
+                                String passwordMd5 = Common.MD5(passwordRec);
                                 String bracnchRec = json.getString("branch");
                                 String nameRec = json.getString(Constants.KEY_STUDENT_NAME);
                                 String programmeRec = json.getString(Constants.KEY_STUDENT_PROGRAMME);
@@ -94,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Intent loginIntent = new Intent(LoginActivity.this, HomeActivity.class);
                                 loginIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                                 loginIntent.putExtra(Constants.KEY_SID, sidRec);
-                                loginIntent.putExtra(Constants.KEY_PASSWORD, passwordRec);
+                                loginIntent.putExtra(Constants.KEY_PASSWORD, passwordMd5);
                                 loginIntent.putExtra(Constants.KEY_BRANCH, bracnchRec);
                                 loginIntent.putExtra(Constants.KEY_STUDENT_NAME, nameRec);
                                 loginIntent.putExtra(Constants.KEY_STUDENT_PROGRAMME, programmeRec);
@@ -118,7 +127,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 protected Map<String,String> getParams(){
                     Map<String,String> params = new HashMap<String, String>();
                     params.put(Constants.KEY_SID,sidText);
-                    params.put(Constants.KEY_PASSWORD,passwordText);
+                    params.put(Constants.KEY_PASSWORD,Common.MD5(passwordText));
+                    params.put(Constants.KEY_STUDENT_PROGRAMME, studentProgramme);
                     return params;
                 }
             };

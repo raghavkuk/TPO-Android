@@ -57,6 +57,18 @@
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
+    <Spinner
+        android:id="@+id/programme_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password_text_input_layout"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp">
+
+    </Spinner>
+
     <Button
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
@@ -71,6 +83,6 @@
         android:textSize="18sp"
         android:background="@color/colorPrimary"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/password_text_input_layout"/>
+        android:layout_below="@id/programme_spinner"/>
 
 </RelativeLayout>

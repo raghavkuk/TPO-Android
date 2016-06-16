@@ -33,7 +33,7 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     @Override
     public void onBindViewHolder(AnnouncementViewHolder holder, int position) {
         Announcement announcement = announcementArrayList.get(position);
-        holder.companyName.setText(announcement.getCompany_name());
+        //holder.companyName.setText(announcement.getCompany_name());
         holder.msg.setText(announcement.getMsg());
         holder.date.setText(announcement.getDate());
     }

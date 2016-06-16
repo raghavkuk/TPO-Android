@@ -8,7 +8,7 @@ import org.json.JSONObject;
  */
 public class Announcement {
 
-    private String msg, company_name, date;
+    private String msg, date;
 
     public String getMsg() {
         return msg;
@@ -17,7 +17,7 @@ public class Announcement {
     public Announcement(JSONObject jsonObject) {
 
         try {
-            company_name = jsonObject.getString("company_name");
+            //company_name = jsonObject.getString("company_name");
             msg = jsonObject.getString("msg");
             date = jsonObject.getString("date");
         }catch (JSONException e) {
@@ -30,13 +30,13 @@ public class Announcement {
         this.msg = msg;
     }
 
-    public String getCompany_name() {
-        return company_name;
-    }
+    //public String getCompany_name() {
+//        return company_name;
+//    }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
-    }
+//    public void setCompany_name(String company_name) {
+//        this.company_name = company_name;
+//    }
 
     public String getDate() {
         return date;

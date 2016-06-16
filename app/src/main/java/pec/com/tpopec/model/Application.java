@@ -3,6 +3,8 @@ package pec.com.tpopec.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pec.com.tpopec.general.Constants;
+
 /**
  * Created by Raghav on 10-05-2016.
  */
@@ -18,15 +20,15 @@ public class Application {
     public Application(JSONObject jsonObject) {
 
         try {
-            company_name = jsonObject.getString("company_name");
-            job_designation = jsonObject.getString("job_designation");
-            company_id = jsonObject.getInt("company_id");
-            jaf_id = jsonObject.getInt("jaf_id");
-            sid = jsonObject.getString("sid");
-            cv_id = jsonObject.getInt("cv_id");
-            student_name = jsonObject.getString("student_name");
-            student_prog = jsonObject.getString("student_programme");
-            student_branch = jsonObject.getString("student_branch");
+            company_name = jsonObject.getString(Constants.KEY_COMPANY_NAME);
+            job_designation = jsonObject.getString(Constants.KEY_JOB_DESIGNATION);
+            company_id = jsonObject.getInt(Constants.KEY_COMPANY_ID);
+            jaf_id = jsonObject.getInt(Constants.KEY_JAF_ID);
+            sid = jsonObject.getString(Constants.KEY_SID);
+            cv_id = jsonObject.getInt(Constants.KEY_CV_ID);
+            student_name = jsonObject.getString(Constants.KEY_STUDENT_NAME);
+            student_prog = jsonObject.getString(Constants.KEY_STUDENT_PROGRAMME);
+            student_branch = jsonObject.getString(Constants.KEY_BRANCH);
         }catch (JSONException e) {
             e.printStackTrace();
         }

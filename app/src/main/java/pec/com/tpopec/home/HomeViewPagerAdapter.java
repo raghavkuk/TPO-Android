@@ -19,27 +19,18 @@ public class HomeViewPagerAdapter extends FragmentStatePagerAdapter{
             case 0:
                 return NewCompaniesFragment.newInstance();
             case 1:
+                return AnnoucementsFragment.newInstance();
+            case 2:
                 return AppliedCompaniesFragment.newInstance();
             default:
                 return NewCompaniesFragment.newInstance();
         }
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        switch(position){
-            case 0:
-                return "New";
-            case 1:
-                return "Applied";
-            default:
-                return super.getPageTitle(position);
-        }
-    }
 
     @Override
     public int getCount() {
-        return 2;           // As there are only 3 Tabs
+        return 3;           // As there are only 3 Tabs
     }
 
 }
